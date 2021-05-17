@@ -66,12 +66,6 @@ class Discriminator:
 
         return self.discriminator
 
-    def getDiscLoss(self,real_op,fake_op):
-        real_loss = self.loss(tf.ones_like(real_op),real_op)
-        fake_loss = self.loss(tf.zeros_like(fake_op),fake_op)
-        total_loss = fake_loss + real_loss
-        return total_loss
-
     def getDiscriminatorOptimizer(self,LR=3e-4):
         return Adam(learning_rate=LR)
 
