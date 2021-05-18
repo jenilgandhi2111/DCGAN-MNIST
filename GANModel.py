@@ -7,7 +7,7 @@ from keras.losses import BinaryCrossentropy
 from tensorflow.keras.optimizers import Adam
 
 class Generator:
-    def makeGenerator(self,BASE_FILTERS=32,KERNEL_SIZE=(5,5)):
+    def getGenerator(self,BASE_FILTERS=32,KERNEL_SIZE=(5,5)):
         
         self.loss = BinaryCrossentropy(from_logits=True)
 
@@ -43,7 +43,7 @@ class Generator:
             return self.generator.summary()
 
 class Discriminator:
-    def makeDiscriminator(self,INPUT_SHAPE=(28,28,1),BASE_FILTERS=64,KERNEL_SIZE=(5,5)):
+    def getDiscriminator(self,INPUT_SHAPE=(28,28,1),BASE_FILTERS=64,KERNEL_SIZE=(5,5)):
 
         self.loss = BinaryCrossentropy()
 
