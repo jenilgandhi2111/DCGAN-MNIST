@@ -1,3 +1,4 @@
+from os import name
 import GANModel
 import TrainGAN
 import tensorflow as tf
@@ -8,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # Defining the parameters
 BATCH_SIZE = 256
-EPOCHS = 10
+EPOCHS = 1
 DISC_BASE_FILTERS = 64
 DISC_KERNEL_SIZE = (5,5)
 INPUT_SHAPE = (28,28,1)
@@ -37,15 +38,20 @@ print("4.) Done making train dataset")
 
 
 print("5.) Training the Gan started")
-train_gan = TrainGAN.TrainGan(train_dataset,EPOCHS,BATCH_SIZE,NOISE_DIM,DISC,GEN)
+GEN_LOSS,DISC_LOSS = TrainGAN.TrainGan().train(train_dataset,EPOCHS,BATCH_SIZE,NOISE_DIM,DISC,GEN,True)
 print("6.) Training the Gan Finished")
 
 
 print("5.) Visualizing the Gan")
-noise = tf.random.normal([256, NOISE_DIM])
-gen_image=GEN(noise,training=False)
-for i in range(20):
-  plt.imshow(gen_image[i].numpy().reshape(28,28))
-  plt.show()
-print("6.) Done all steps")
+# noise = tf.random.normal([256, NOISE_DIM])
+# gen_image=GEN(noise,training=False)
+# for i in range(20):
+#   plt.imshow(gen_image[i].numpy().reshape(28,28))
+#   plt.show()
+plt.plot(GEN_LOSS,label="Generator Loss")
+plt.plot(DISC_LOSS,label="Discriminator Loss")
+plt.legend()
+plt.show()
+
+print("7.) Done all steps")
 

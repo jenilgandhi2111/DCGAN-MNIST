@@ -16,20 +16,28 @@ def getDiscLoss(real_op,fake_op):
 
         
 class TrainGan:
-    def __init__(self,dataset,epochs,BATCH_SIZE,NOISE_DIM,discriminator,generator):
+    def train(self,dataset,epochs,BATCH_SIZE,NOISE_DIM,discriminator,generator,get_loss=False):
         DISC_OBJ = GANModel.Discriminator()
         GEN_OBJ = GANModel.Generator()
+        GEN_LOSS=[]
+        DISC_LOSS=[]
         for epoch in range(epochs):
             print("Starting Training for epoch:",epoch)
-            start = time.time
+            start = time.time()
 
             for image_batch in dataset:
-                self.train_step(image_batch,BATCH_SIZE,NOISE_DIM,discriminator,generator,DISC_OBJ,GEN_OBJ)
+                if get_loss == True:
+                    gen_loss,disc_loss=self.train_step(image_batch,BATCH_SIZE,NOISE_DIM,discriminator,generator,DISC_OBJ,GEN_OBJ,get_loss)
+                    GEN_LOSS.append(gen_loss)
+                    DISC_LOSS.append(disc_loss)
+                else:
+                    self.train_step(image_batch,BATCH_SIZE,NOISE_DIM,discriminator,generator,DISC_OBJ,GEN_OBJ,get_loss)
             
-            end = time.time
-            # print("Time taken:",(str)(end-start)," Seconds")
-    
-    def train_step(self,images,BATCH_SIZE,NOISE_DIM,discriminator,generator,disc_obj,gen_obj):
+            end = time.time()
+            print("Time Taken for Epoch:",epoch+1," is:",(str)(end-start)," sec")
+        return GEN_LOSS,DISC_LOSS
+
+    def train_step(self,images,BATCH_SIZE,NOISE_DIM,discriminator,generator,disc_obj,gen_obj,get_loss):
         noise = tf.random.normal([BATCH_SIZE,NOISE_DIM])
         
         with tf.GradientTape() as gen_tape,tf.GradientTape() as disc_tape:
@@ -42,12 +50,16 @@ class TrainGan:
             gen_loss = getGeneratorLoss(fake_op)
             disc_loss = getDiscLoss(real_op,fake_op)
 
-            #Getting the gradients of the models based on losses
+        #Getting the gradients of the models based on losses
         gradients_of_generator = gen_tape.gradient(gen_loss,generator.trainable_variables)
         gradients_of_disc = disc_tape.gradient(disc_loss,discriminator.trainable_variables)
                 
             #Applying the gradients for training the network
         gen_obj.getGeneratorOptimizer().apply_gradients(zip(gradients_of_generator,generator.trainable_variables))
         disc_obj.getDiscriminatorOptimizer().apply_gradients(zip(gradients_of_disc,discriminator.trainable_variables))
+
+        if get_loss == True:
+            return gen_loss,disc_loss
+
 
         
