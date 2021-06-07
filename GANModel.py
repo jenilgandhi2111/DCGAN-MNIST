@@ -7,7 +7,7 @@ from keras.losses import BinaryCrossentropy
 from tensorflow.keras.optimizers import Adam
 
 class Generator:
-    def getGenerator(self,BASE_FILTERS=32,KERNEL_SIZE=(5,5)):
+    def getGenerator(self,BASE_FILTERS=32,KERNEL_SIZE=(5,5),FILTERS_CONV=[128,128],OUTPUT_CHANNELS=1):
         
         self.loss = BinaryCrossentropy(from_logits=True)
 
@@ -20,17 +20,17 @@ class Generator:
 
         #layer 2 for generator
         self.generator.add(Reshape((7,7,256)))
-        self.generator.add(Conv2DTranspose(128,kernel_size=(5,5),strides=(1,1),padding="same",use_bias=False))
+        self.generator.add(Conv2DTranspose(FILTERS_CONV[0],kernel_size=(5,5),strides=(1,1),padding="same",use_bias=False))
         self.generator.add(BatchNormalization())
         self.generator.add(LeakyReLU())
 
         #Layer 3 for generator
-        self.generator.add(Conv2DTranspose(128,kernel_size=(5,5),strides=(2,2),padding="same",use_bias=False))
+        self.generator.add(Conv2DTranspose(FILTERS_CONV[1],kernel_size=(5,5),strides=(2,2),padding="same",use_bias=False))
         self.generator.add(BatchNormalization())
         self.generator.add(LeakyReLU())
 
         #Output layer
-        self.generator.add(Conv2DTranspose(1,kernel_size=(5,5),strides=(2,2),padding="same",use_bias=False,activation="tanh"))
+        self.generator.add(Conv2DTranspose(OUTPUT_CHANNELS,kernel_size=(5,5),strides=(2,2),padding="same",use_bias=False,activation="tanh"))
         # The above layer would generate an upsampled image form the random nosie it was given
 
         return self.generator

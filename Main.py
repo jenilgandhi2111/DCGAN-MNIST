@@ -7,6 +7,16 @@ from keras.datasets import mnist
 import numpy as np
 import matplotlib.pyplot as plt
 
+'''
+  How to test?
+  -> Go to your google colab notebook
+  -> Upload the files GANModel.py and TrainGAN.py on your current session
+  -> Now Copy the code for Main.py in your notebook and run your cell
+    ** Make sure you select GPU for your runtime as that will speed up the training
+  -> The Results will be shown after the training is complete
+'''
+
+
 # Defining the parameters
 BATCH_SIZE = 256
 EPOCHS = 1
@@ -50,6 +60,3 @@ if SHOW_LOSS_PLOT == True:
   plt.plot(DISC_LOSS,label="Discriminator Loss")
   plt.legend()
   plt.show()
-
-
-
