@@ -24,5 +24,5 @@ Generator Loss: ▽ log(1-Discrminator(Generated image))<br>
 
 * Below given is a architectural view of GAN.<br><kbd><img src="https://miro.medium.com/max/601/1*Y_AGVp0EEGEpB1Q25G6edQ.jpeg"/></kbd>
 
-<b>In the above model we need to tune the hyperparameters to use it . I have handpicked some of the best results I got</b>
+<b>In the above model we need to tune the hyperparameters to use it . I have handpicked some of the best results I got</b><br>
 <b>Reference:</b> <a href="https://papers.nips.cc/paper/2014/file/5ca3e9b122f61f8f06494c97b1afccf3-Paper.pdf">https://papers.nips.cc/paper/2014/file/5ca3e9b122f61f8f06494c97b1afccf3-Paper.pdf</a>
