@@ -16,7 +16,7 @@
 ## How Gan's Work:
 * The Gan's were introduced by Ian Goodfellow in 2014. Generative adversarial networks (GANs) are algorithmic architectures that use two neural networks, pitting one against the other (thus the “adversarial”) in order to generate new, synthetic instances of data that can pass for real data.
 
-* It is more like a thief police game or a minimax game where the theif tries to counterfeit notes and everytime the theif makes a mistake it is penalized and it tries to get better and better on counterfeiting the notes and the police tries to catch the theif evrytime and the police gets better and better on catching the theif . At some point of time the police would not be able to tell the difference between real and fake notes. 
+* It is more like a chor police game or a minimax game where the chor tries to counterfeit notes and everytime the chor makes a mistake it is penalized and it tries to get better and better on counterfeiting the notes and the police tries to catch the chor evrytime and the police gets better and better on catching the chor . At some point of time the police would not be able to tell the difference between real and fake notes. 
 
 * Discrminator Loss: △ log( Discriminator(Real image) ) + ( 1 - Discriminator(Generated Image) )<br>
 Generator Loss: ▽ log(1-Discrminator(Generated image))<br>
